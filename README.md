@@ -303,21 +303,21 @@ Properties:<br/>
 <h1>Quick tutorial</h1><br/>
 <ol style='font-size: 13px;'>
     <li>Create and set database (config.php)</li>
-    <li>Create model (php manage.php model MyModel) and set below props in the constructor:
+    <li>Create model (php manage.php model MyModel) and set below props in the constructor:<br/>
         <b>
-            $this->name = CharField::init('name', ['max' => 128]);
-            $this->x = IntegerField::init('x');
-            $this->y = DecimalField::init('y', ['precision' => 10, 'numbers_qty' => 7]);
+            $this->name = CharField::init('name', ['max' => 128]);<br/>
+            $this->x = IntegerField::init('x');<br/>
+            $this->y = DecimalField::init('y', ['precision' => 10, 'numbers_qty' => 7]);<br/>
         </b>
     </li>
     <li>Create view (php manage.php view MyModelView)</li>
     <li>Go to urls.php in root folder and let's add this line to your $urls var: <b>url('/', 'MyModelView', 'index', 'GET')</b>
-    <li>Go to views/MyModelView.php and declare inside that new function:
+    <li>Go to views/MyModelView.php and declare inside that new function:<br/>
         <b>
-            public function index(){
-                $my_entities = MyModel::all();
-                return $this->render('index', ['my_entities' => $my_entities]);
-            }
+            public function index(){<br/>
+                $my_entities = MyModel::all();<br/>
+                return $this->render('index', ['my_entities' => $my_entities]);<br/>
+            }<br/>
         </b>
     </li>
     <li>Attach your model to view by line <b>require_once __dir__."/../models/MyModel.php";</b> it's necessery</li>
