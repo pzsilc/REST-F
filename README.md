@@ -163,7 +163,7 @@ Properties:
                 - protected<br/>
                 - purpose: adding any html attributes to a single input by overriding this function in your own form class<br/>
                 - arguments: $fieldname (string, name of field (name of attribute in model)), $attrs (array made of 2-elements arrays (key and value in html))<br/>
-                - returns: null<br/><li>
+                - returns: null</li>
         </ul>
     </li>
 </ul>
@@ -241,10 +241,10 @@ Urls is the section where you can describe your urls for your application.<br/>
 List of your urls is located in urls.php file.<br/>
 You should define your urls with url function<br/>
 <h3>Url function - parameters list</h3><br/>
-- <b>$path</b> - path which will trigger on that url<br/>
-- <b>$view</b> - name of target view<br/>
-- <b>$action</b> - name of target method in target view<br/>
-- <b>$http_method</b> - supported http method (by default is 'GET')<br/>
+- <b>path</b> - path which will trigger on that url<br/>
+- <b>view</b> - name of target view<br/>
+- <b>action</b> - name of target method in target view<br/>
+- <b>http_method</b> - supported http method (by default is 'GET')<br/>
 
 
 
@@ -265,34 +265,34 @@ Properties:<br/>
     <li>methods:
         <ul>
             <li>get:<br/>
-            - public<br/>
-            - purpose: get data from GET storage<br/>
-            - arguments: key (string, name of var), default_val (any, value returned when key will be not existing)<br/>
-            - returns: value of var or default_val is var not exists<br/>
+                - public<br/>
+                - purpose: get data from GET storage<br/>
+                - arguments: key (string, name of var), default_val (any, value returned when key will be not existing)<br/>
+                - returns: value of var or default_val is var not exists<br/>
             </li>
             <li>post:<br/>
-            - public<br/>
-            - purpose: get data from POST storage<br/>
-            - arguments: key (string, name of var), default_val (any, value returned when key will be not existing)<br/>
-            - returns: value of var or default_val is var not exists<br/>
+                - public<br/>
+                - purpose: get data from POST storage<br/>
+                - arguments: key (string, name of var), default_val (any, value returned when key will be not existing)<br/>
+                - returns: value of var or default_val is var not exists<br/>
             </li>
             <li>session:<br/>
-            - public<br/>
-            - purpose: get data from SESSION storage<br/>
-            - arguments: key (string, name of var), default_val (any, value returned when key will be not existing)<br/>
-            - returns: value of var or default_val is var not exists<br/>
+                - public<br/>
+                - purpose: get data from SESSION storage<br/>
+                - arguments: key (string, name of var), default_val (any, value returned when key will be not existing)<br/>
+                - returns: value of var or default_val is var not exists<br/>
             </li>
             <li>set_session:<br/>
-            - public<br/>
-            - purpose: set new session var<br/>
-            - arguments: key (string, key for new var), value (any, value for new var)<br/>
-            - returns: null<br/>
+                - public<br/>
+                - purpose: set new session var<br/>
+                - arguments: key (string, key for new var), value (any, value for new var)<br/>
+                - returns: null<br/>
             </li>
             <li>unset_session:<br/>
-            - public<br/>
-            - purpose: unset existing session var<br/>
-            - arguments: key (string, key of var)<br/>
-            - returns: null<br/>
+                - public<br/>
+                - purpose: unset existing session var<br/>
+                - arguments: key (string, key of var)<br/>
+                - returns: null<br/>
             </li>
         </ul>
     </li>
@@ -300,7 +300,7 @@ Properties:<br/>
 
 
 
-<h1>Quick tutorial<h1><br/>
+<h1>Quick tutorial</h1><br/>
 <ol style='font-size: 13px;'>
     <li>Create and set database (config.php)</li>
     <li>Create model (php manage.php model MyModel) and set below props in the constructor:
