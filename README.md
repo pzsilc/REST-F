@@ -22,64 +22,71 @@ Model is made of:<br/>
     - TABLE constant - name of table in database model is associated with<br/>
     - required overrided constructor - inside this function you can declare properties (columns in database / attributes in app). Each field have to be type of any class derived       by Field (full list of that classes in section Fields below)<br/>
 Properties:<br/>
-    - attributes: <br/>
-        - id (integer, auto managed, you should not edit that), <br/>
-        - [your own] (columns in db, each of them has to be declared as type of Field), <br/>
-        - TABLE (const string, name of a table in db, require to override in each derived class)<br/>
-    - methods:<br/>
-        - constructor:<br/>
-            - arguments: none<br/>
-        - __toString: <br/>
-            - auto calling<br/>
-            - overridable, <br/>
-            - by default there's id of object<br/>
-        - qexec:<br/>
-            - static protected<br/>
-            - purpose: executin the sql query and if there're any data - convert to the array of objects<br/>
-            - arguments: $query to executed<br/>
-            - returns: array of objects or null<br/>
-        - all:<br/>
-            - static public<br/>
-            - purpose: get all objects from table<br/>
-            - arguments: none<br/>
-            - returns: array of objects<br/>
-        - get_object_or_404:<br/>
-            - static public<br/>
-            - purpose: find exactly 1 object by id in table<br/>
-            - arguments: $id<br/>
-            - returns: single object or throw 404 if object is not exists<br/>
-        - filter:<br/>
-            - static public<br/>
-            - purpose: get only those from all objects which are matching to the requires in arguments<br/>
-            - arguments: array of exactly-3-elements-length arrays (elements => first: column name; second: math operator; third: value) (e.g. 
-              [['id', '>', 100], ['category_id', '=', 7]])<br/>
-            - returns: array of objects<br/>
-        - sql: (not recommended)<br/>
-            - static public<br/>
-            - purpose: execute raw sql query<br/>
-            - arguments: $query<br/>
-            - returns: array of objects<br/>
-        - max:<br/>
-            - static public<br/>
-            - purpose: find object with max value in column<br/>
-            - arguments: $col_name (column's name)<br/>
-            - returns: single object with max indicated value<br/>
-        - min:<br/>
-            - static public<br/>
-            - purpose: find object with min value in column<br/>
-            - arguments: $col_name (column's name)<br/>
-            - returns: single object with min indicated value<br/>
-        - save:<br/>
-            - public<br/>
-            - purpose: save object into database, function is able to recognize if object is existing in database alright and can adjust sql query for suitable case<br/>
-            - arguments: $commit (optional, if set true, object will be not saved, and function returns id of next future object)<br/>
-            - returns: none or if $commit=true id which will be assigned to this object when you will save it<br/>
-        - delete:<br/>
-            - public<br/>
-            - purpose: delete object from database<br/>
-            - arguments: none<br/>
-            - returns: null<br/>
-
+<ul>
+    <li>attributes: <br/>
+        <ul>
+            <li>id (integer, auto managed, you should not edit that),<li>
+            <li>[your own] (columns in db, each of them has to be declared as type of Field),<li>
+            <li>TABLE (const string, name of a table in db, require to override in each derived class)<li>
+        </ul>
+    </li>
+    <li>methods:
+        <ul>
+            <li>constructor:<br/>
+                - arguments: none<br/><li>
+            <li>__toString: <br/>
+                - auto calling<br/>
+                - overridable, <br/>
+                - by default there's id of object<br/><li>
+            <li>qexec:<br/>
+                - static protected<br/>
+                - purpose: executin the sql query and if there're any data - convert to the array of objects<br/>
+                - arguments: $query to executed<br/>
+                - returns: array of objects or null<br/><li>
+            <li>all:<br/>
+                - static public<br/>
+                - purpose: get all objects from table<br/>
+                - arguments: none<br/>
+                - returns: array of objects<br/><li>
+            <li>get_object_or_404:<br/>
+                - static public<br/>
+                - purpose: find exactly 1 object by id in table<br/>
+                - arguments: $id<br/>
+                - returns: single object or throw 404 if object is not exists<br/><li>
+            <li>filter:<br/>
+                - static public<br/>
+                - purpose: get only those from all objects which are matching to the requires in arguments<br/>
+                - arguments: array of exactly-3-elements-length arrays (elements => first: column name; second: math operator; third: value) (e.g. 
+                  [['id', '>', 100], ['category_id', '=', 7]])<br/>
+                - returns: array of objects<br/><li>
+            <li>sql: (not recommended)<br/>
+                - static public<br/>
+                - purpose: execute raw sql query<br/>
+                - arguments: $query<br/>
+                - returns: array of objects<br/><li>
+            <li>max:<br/>
+                - static public<br/>
+                - purpose: find object with max value in column<br/>
+                - arguments: $col_name (column's name)<br/>
+                - returns: single object with max indicated value<br/><li>
+            <li>min:<br/>
+                - static public<br/>
+                - purpose: find object with min value in column<br/>
+                - arguments: $col_name (column's name)<br/>
+                - returns: single object with min indicated value<br/><li>
+            <li>save:<br/>
+                - public<br/>
+                - purpose: save object into database, function is able to recognize if object is existing in database alright and can adjust sql query for suitable case<br/>
+                - arguments: $commit (optional, if set true, object will be not saved, and function returns id of next future object)<br/>
+                - returns: none or if $commit=true id which will be assigned to this object when you will save it<br/><li>
+            <li>delete:<br/>
+                - public<br/>
+                - purpose: delete object from database<br/>
+                - arguments: none<br/>
+                - returns: null<br/><li>
+        </ul>
+    </li>
+</ul>
 
 
 <h1>Templates</h1><br/>
