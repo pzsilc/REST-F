@@ -140,25 +140,33 @@ Properties:
 Forms is a system supporting forms on both sides - frontend (auto-generate html forms) and backend (quick validating and preparing forms).<br/>
 You can create a form and associate this with any model you want and have in your application. Then you have very easy way to handling your model in <br/>
 client-side and easy systems for e.g. validation.<br/>
-Properties:<br/>
-    - attributes:  <br/>
-        - MODEL (required, reference to target class, form is associated with)<br/>
-        - instance (instance of object to e.g. edit)<br/>
-        - fields (auto-assigned, fields of target model as html inputs)<br/>
-        - data (instance of data to valid)<br/>
-    - methods:<br/>
-        - constructor:<br/>
-            - arguments: none<br/>
-        - is_valid:<br/>
-            - public<br/>
-            - purpose: validate a retrived data<br/>
-            - arguments: none<br/>
-            - returns: bool<br/>
-        - attrs:<br/>
-            - protected<br/>
-            - purpose: adding any html attributes to a single input by overriding this function in your own form class<br/>
-            - arguments: $fieldname (string, name of field (name of attribute in model)), $attrs (array made of 2-elements arrays (key and value in html))<br/>
-            - returns: null<br/>
+Properties:
+<ul>
+    <li>attributes:
+        <ul>
+            <li>MODEL (required, reference to target class, form is associated with)</li>
+            <li>instance (instance of object to e.g. edit)</li>
+            <li>fields (auto-assigned, fields of target model as html inputs)</li>
+            <li>data (instance of data to valid)</li>
+        </ul>
+    </li>
+    <li>methods:
+        <ul>
+            <li>constructor:<br/>
+                - arguments: none<br/><li>
+            <li>is_valid:<br/>
+                - public<br/>
+                - purpose: validate a retrived data<br/>
+                - arguments: none<br/>
+                - returns: bool<br/><li>
+            <li>attrs:<br/>
+                - protected<br/>
+                - purpose: adding any html attributes to a single input by overriding this function in your own form class<br/>
+                - arguments: $fieldname (string, name of field (name of attribute in model)), $attrs (array made of 2-elements arrays (key and value in html))<br/>
+                - returns: null<br/><li>
+        </ul>
+    </li>
+</ul>
 
 
 
@@ -166,30 +174,38 @@ Properties:<br/>
 Fields are required staff for adjust suitable columns in the database base of attributes in model.<br/>
 Each of them has derived by Field class.<br/>
 Field class:<br/>
-Properties:<br/>
-    - attributes:<br/>
-        - name: (string, name of field in database/html, has to be exactly same like attr name in model)<br/>
-        - settings: (array, settings for sql (e.g. ['required'=>true, 'unique'=>true]))<br/>
-        - attrs: (string, html settings for input)<br/>
-    - methods:<br/>
-        - constructor:<br/>
-            - protected<br/>
-            - arguments: $name (required, have to be the same like attribute name in model), $settings (optional, settings for sql)<br/>
-        - init:<br/>
-            - static public<br/>
-            - purpose: create instance of field<br/>
-            - arguments: $name (required, have to be the same like attribute name in model), $settings (optional, settings for sql)<br/>
-            - returns: object of this field<br/>
-        - add_attr:<br/>
-            - public<br/>
-            - purpose: add new setting for html<br/>
-            - arguments: $attr (string, setting for html ("key=value")<br/>
-            - returns: null<br/>
-        - to_sql:<br/>
-            - public<br/>
-            - purpose: precise a suitable part of whole sql query<br/>
-            - arguments: none<br/>
-            - returns: string (part of sql query dependent on type of var (e.g. for int will return "INT"))<br/>
+Properties:
+<ul>
+    <li>attributes:<br/>
+        <ul>
+            <li>name: (string, name of field in database/html, has to be exactly same like attr name in model)</li>
+            <li>settings: (array, settings for sql (e.g. ['required'=>true, 'unique'=>true]))</li>
+            <li>attrs: (string, html settings for input)</li>
+        </ul>
+    </li>
+    <li>methods:<br/>
+        <ul>
+            <li>constructor:<br/>
+                - protected<br/>
+                - arguments: $name (required, have to be the same like attribute name in model), $settings (optional, settings for sql)</li>
+            <li>init:<br/>
+                - static public<br/>
+                - purpose: create instance of field<br/>
+                - arguments: $name (required, have to be the same like attribute name in model), $settings (optional, settings for sql)<br/>
+                - returns: object of this field</li>
+            <li>add_attr:<br/>
+                - public<br/>
+                - purpose: add new setting for html<br/>
+                - arguments: $attr (string, setting for html ("key=value")<br/>
+                - returns: null</li>
+            <li>to_sql:<br/>
+                - public<br/>
+                - purpose: precise a suitable part of whole sql query<br/>
+                - arguments: none<br/>
+                - returns: string (part of sql query dependent on type of var (e.g. for int will return "INT"))</li>
+        </ul>
+    </li>
+</ul>
 
 
 <h3>List of fields</h3><br/>
