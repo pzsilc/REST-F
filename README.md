@@ -322,10 +322,10 @@ Properties:<br/>
     </li>
     <li>Attach your model to view by line <b>require_once __dir__."/../models/MyModel.php";</b> it's necessery</li>
     <li>Go to statics/templates and create new file named index.blade.php</li>
-    <li>inside this file just write something like that:
+    <li>inside this file just write something like that:<br/>
         <b>
-            @extends('layout')
-            @section('main')
+            @extends('layout')<br/>
+            @section('main')<br/>
                 My entities:<br/>
                 @foreach($my_entities as $entity)<br/>
                     <div><br/>
