@@ -8,9 +8,9 @@ Yoda is supporting model-template-view approach, it posses  additional forms, fi
 <h1>Config</h1><br/>
 Before all you have to set all data in config.php in root folder of your project.<br/>
 There are 3 vars:<br/>
-- app_name: app of your name<br/>
-- app_path: the domain where your app is running (by default this's a localhost)<br/>
-- database: the creditials for your database (by default host:localhost, user:root, password:, db:)<br/>
+- <b>app_name:<b> app of your name<br/>
+- <b>app_path:<b> the domain where your app is running (by default this's a localhost)<br/>
+- <b>database:<b> the creditials for your database (by default host:localhost, user:root, password:, db:)<br/>
 <br/>
 <br/>
 <br/>
@@ -179,16 +179,16 @@ Properties:<br/>
 
 <h3>List of fields</h3><br/>
 <ul>
-    <li>CharField - string, (input[type="text"]), required settings: max -> integer</li> 
-    <li>TextField - string, (textarea), required settings: max -> integer</li>
-    <li>IntegerField - int, (input[type="number"]), required settings: none</li>
-    <li>DecimalField - float (input[type="number"](with step)), required settings: number_qty -> integer (total number of digits in value), precision (number of digits after           comma), number_qty < precision
+    <li><b>CharField<b> - string, (input[type="text"]), required settings: max -> integer</li> 
+    <li><b>TextField<b> - string, (textarea), required settings: max -> integer</li>
+    <li><b>IntegerField<b> - int, (input[type="number"]), required settings: none</li>
+    <li><b>DecimalField<b> - float (input[type="number"](with step)), required settings: number_qty -> integer (total number of digits in value), precision (number of digits after           comma), number_qty < precision
     </li>
-    <li>BooleanField - bool, (input type="checkbox"]), required settings: none</li>
-    <li>EmailField - string, (input type="email"]), required settings: max -> integer</li>
-    <li>PasswordField - string, (input type="password"]), required settings: max -> integer</li>
-    <li>DateTimeField - string, (input type="datetime-local"]), required settings: none</li>
-    <li>ForeignField - integer, (select over entities of target model), required settings: none <strong>IMPORTANT</strong> this field has own init method and between name and         settings arguments there's a target model arg which is required parameter and has to be a reference to class of model
+    <li><b>BooleanField<b> - bool, (input type="checkbox"]), required settings: none</li>
+    <li><b>EmailField<b> - string, (input type="email"]), required settings: max -> integer</li>
+    <li><b>PasswordField<b> - string, (input type="password"]), required settings: max -> integer</li>
+    <li><b>DateTimeField<b> - string, (input type="datetime-local"]), required settings: none</li>
+    <li><b>ForeignField<b> - integer, (select over entities of target model), required settings: none <strong>IMPORTANT</strong> this field has own init method and between name and         settings arguments there's a target model arg which is required parameter and has to be a reference to class of model
     </li>
 </ul>
 </ul>
@@ -199,10 +199,10 @@ Properties:<br/>
 Yoda allows you to quickand easy manage of few things:<br/>
 You can run "php manage.php [command]" from cmd.<br/>
 List of commands:<br/>
-- migrate - (auto-migrate tables into database based of models)<br/>
-- view [name] - create new view<br/>
-- model [name] - create new model<br/>
-- form [name] - create new form<br/>
+- <b>migrate<b> - (auto-migrate tables into database based of models)<br/>
+- <b>view [name]<b> - create new view<br/>
+- <b>model [name]<b> - create new model<br/>
+- <b>form [name]<b> - create new form<br/>
 <br/>
 <br/>
 <br/>
@@ -211,10 +211,10 @@ Urls is the section where you can describe your urls for your application.<br/>
 List of your urls is located in urls.php file.<br/>
 You should define your urls with url function<br/>
 <h3>Url function - parameters list</h3><br/>
-- $path - path which will trigger on that url<br/>
-- $view - name of target view<br/>
-- $action - name of target method in target view<br/>
-- $http_method - supported http method (by default is 'GET')<br/>
+- <b>$path<b> - path which will trigger on that url<br/>
+- <b>$view<b> - name of target view<br/>
+- <b>$action<b> - name of target method in target view<br/>
+- <b>$http_method<b> - supported http method (by default is 'GET')<br/>
 <br/>
 <br/>
 <br/>
