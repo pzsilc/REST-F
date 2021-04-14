@@ -19,8 +19,8 @@ Model represents an essential entity (class) in entire application. <br/>
 Models has build-in several functions for more comfortable creating the sql queries.<br/>
 Models are in folder models.<br/>
 Model is made of:<br/>
-    - TABLE constant - name of table in database model is associated with<br/>
-    - required overrided constructor - inside this function you can declare properties (columns in database / attributes in app). Each field have to be type of any class derived       by Field (full list of that classes in section Fields below)<br/>
+    - <b>TABLE constant</b> - name of table in database model is associated with<br/>
+    - <b>required overrided constructor</b> - inside this function you can declare properties (columns in database / attributes in app). Each field have to be type of any class derived by Field (full list of that classes in section Fields below)<br/>
 Properties:<br/>
 <ul>
     <li>attributes: <br/>
@@ -99,32 +99,40 @@ Full documentation here: <a href="https://github.com/EFTEC/BladeOne">https://git
 Views are essential engine for logicals operations in your application.<br/>
 Main purposes for views is handling requests (e.g. rendering templates, redirecting, handleing of models).<br/>
 Views are in folder views.<br/>
-Properties:<br/>
-    - attributes:<br/>
-        - request (protected, object of Request type)<br/>
-    - methods:<br/>
-        - constructor:<br/>
-            - arguments: none<br/>
-        - add_message:<br/>
+Properties:
+<ul>
+    <li>attributes:<br/>
+        <ul>
+            <li>request (protected, object of Request type)</li>
+        </ul>
+    </li>
+    <li>methods:
+        <ul>
+            <li>constructor:<br/>
+            - arguments: none<br/></li>
+        <li>add_message:<br/>
             - protected<br/>
             - purpose: adding new messages in app. Messages will be printed automaticlly on the top of page (under header by default)<br/>
             - arguments: $type (string, type of message, e.g. info, error), $text (string, content of message)<br/>
-            - returns: null<br/>
-        - generate_csrf:<br/>
+            - returns: null<br/></li>
+        <li>generate_csrf:<br/>
             - private<br/>
             - purpose: generate new csrf token and store in session to validate forms<br/>
             - arguments: none<br/>
-            - returns: string as html input with token<br/>
-        - redirect:<br/>
+            - returns: string as html input with token<br/></li>
+        <li>redirect:<br/>
             - protected<br/>
             - purpose: redirect user<br/>
             - arguments: $url (destination url of reidrect)<br/>
-            - returns: null<br/>
-        - render:<br/>
+            - returns: null<br/></li>
+        <li>render:<br/>
             - public<br/>
             - purpose: rendering templates<br/>
             - arguments: $dir (target template according to BladeOne system), $args (array of vars you want to pass to your template)<br/>
-            - returns: null<br/>
+            - returns: null<br/></li>
+        </ul>
+    </li>
+</ul>
 
 
 
