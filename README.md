@@ -326,17 +326,15 @@ Properties:<br/>
         <b>
             @extends('layout')
             @section('main')
-                <h1>My entities:</h1>
-                <ul>
-                @foreach($my_entities as $entity)
-                    <li>
-                        Name: {{ $entity->name }}
-                        X: {{ $entity->x }}
-                        Y: {{ $entity->y }}
-                    </li>
-                @endforeach
-                </ul>
-            @endsection
+                My entities:<br/>
+                @foreach($my_entities as $entity)<br/>
+                    <div><br/>
+                        Name: {{ $entity->name }}<br/>
+                        X: {{ $entity->x }}<br/>
+                        Y: {{ $entity->y }}<br/>
+                    </div><br/>
+                @endforeach<br/>
+            @endsection<br/>
         </b>
     </li>
     <li>Now if you have added few entities into your database, tou should be able to see your data</li>
