@@ -226,7 +226,7 @@ Properties:
 
 
 <h1>Management</h1><br/>
-Yoda allows you to quickand easy manage of few things:<br/>
+Yoda allows you to quick and easy management of few things:<br/>
 You can run "php manage.php [command]" from cmd.<br/>
 List of commands:<br/>
 - <b>migrate<b> - (auto-migrate tables into database based of models)<br/>
