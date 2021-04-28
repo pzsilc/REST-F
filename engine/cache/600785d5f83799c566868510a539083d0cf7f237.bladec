@@ -1,0 +1,12 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('main'); ?>
+ <form method="POST" class="p-5">
+ <?php echo $csrf; ?>
+
+ <h3 class='text-muted mb-3 text-center'>Zaloguj się</h3>
+ <p class='mb-1'>Token</p>
+ <input type="password" name="token" required class="form-control" />
+ <input type="submit" class="btn btn-primary mt-2" style="width:100%;" />
+ </form>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

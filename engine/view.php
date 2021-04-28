@@ -42,7 +42,7 @@ class View
 
     public function render($dir, $args=[])
     {
-        $csrf_token = $this->generate_csrf();
+        $csrf = $this->generate_csrf();
         global $app_name;
         global $app_path;
         $messages = [];
@@ -54,7 +54,14 @@ class View
         $views = 'statics/templates';
         $cache = 'engine/cache';
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
-        echo $blade->run($dir, array_merge(['app_name' => $app_name, 'messages' => $messages], $args));
+        echo $blade->run($dir, array_merge([
+                'app_name' => $app_name, 
+                'app_path' => $app_path,
+                'csrf' => $csrf,
+                'messages' => $messages
+            ], 
+            $args
+        ));
     }
 }
 

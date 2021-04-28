@@ -50,12 +50,8 @@ class CharField extends Field
 
 class TextField extends Field
 {
-    public static function valid($settings){
-        if(!isset($settings['max'])){ throw new Exception('Have to define max'); }
-    }
-
     public function to_sql(){
-        return "VARCHAR(".$this->settings['max'].")";
+        return "TEXT";
     }
 
     public function __toString(){

@@ -113,6 +113,7 @@ $dir = scandir('../models');
 Migrator::get_tables($conn);
 foreach(array_slice($dir, 2) as $file)
 {
+    if($file === '.gitignore') continue;
     $migrator = new Migrator($file);
     $migrator->run($conn);
 }

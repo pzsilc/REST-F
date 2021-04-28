@@ -1,14 +1,14 @@
 <?php
 
-$app_name = 'Yoda';
+$app_name = 'Ankieta';
 
-$app_path = 'http://localhost/app_name';
+$app_path = 'http://localhost/months-questionnaires';
 
 $database = [
     'host' => 'localhost',
     'user' => 'root',
     'password' => '',
-    'db' => ''
+    'db' => 'months-questionnaires'
 ];
 
 ?>
