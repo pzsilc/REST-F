@@ -1,14 +1,14 @@
 <?php
 
-$app_name = 'Ankieta';
+$app_name = 'Urlopy';
 
-$app_path = 'http://localhost/months-questionnaires';
+$app_path = 'http://localhost/holidays';
 
 $database = [
     'host' => 'localhost',
     'user' => 'root',
     'password' => '',
-    'db' => 'months-questionnaires'
+    'db' => ''
 ];
 
 ?>
