@@ -33,7 +33,7 @@ final class Migrator
     {
         $prop = $attr->name.' '.$attr->to_sql();
         if(!isset($attr->settings['required']) || $attr->settings['required'] == true) $prop .= ' NOT NULL';
-        if(!isset($attr->settings['unique']) || $attr->settings['unique'] == true) $prop .= ' UNIQUE';
+        if(isset($attr->settings['unique']) && $attr->settings['unique'] == true) $prop .= ' UNIQUE';
         if(isset($attr->settings['default'])) $prop .= " DEFAULT '".$attr->settings['default']."'";
         return $prop;
     }

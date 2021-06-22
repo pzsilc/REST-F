@@ -27,8 +27,10 @@ abstract class Model
         $conn = new mysqli($database['host'], $database['user'], $database['password'], $database['db']);
 	    $conn->query("set names 'utf8'");
         $results = $conn->query($query);
-        if($conn->insert_id){ return $conn->insert_id; }
-        if(!is_object($results) || $results->num_rows == 0) { return []; }
+        if($conn->insert_id)
+            return $conn->insert_id;
+        if(!is_object($results) || $results->num_rows == 0 || is_bool($results)) 
+            return [];
         $arr = [];
         $class = get_called_class();
         while($row = $results->fetch_assoc()){
@@ -57,6 +59,14 @@ abstract class Model
             die();
         }
         return $result[0];
+    }
+
+    public function get($id)
+    {
+        $class = get_called_class();
+        $res = $class::qexec("SELECT * FROM ".$class::TABLE." WHERE id=$id");
+        if(!$res) return null;
+        return $res[0];
     }
 
     public static function filter($arr)
@@ -107,11 +117,16 @@ abstract class Model
                 else { $query .= ', '.$key; }
             }
             $query .= ') VALUES (';
-            $f = true;
+            $div = '';
             foreach(get_object_vars($this) as $key=>$val){
                 if($key == 'id') { continue; }
-                if($f) { $query .= '"'.$val.'"'; $f = false; }
-                else { $query .= ', '.'"'.$val.'"'; }
+                if(!is_null($val)){
+                    $val = '"' . $val . '"';
+                } else {
+                    $val = 'NULL';
+                }
+                $query .= $div . $val;
+                $div = ', ';
             }
             $query .= ')';
             $this->id = $class::qexec($query);

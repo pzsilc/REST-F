@@ -10,14 +10,6 @@ class View
     public function __construct()
     {
         $this->request = new Request();
-        if($this->request->method == 'POST'){
-            if(!$this->request->post('csrf_token') || $this->request->post('csrf_token') != $this->request->session('csrf_token')){
-                http_response_code(403);
-                $this->render('errors/403');
-                die();
-            }
-            $this->request->unset_session('csrf_token');
-        }
     }
 
     protected function add_message($type, $text)
@@ -31,6 +23,12 @@ class View
         $token = md5(uniqid());
         $this->request->set_session('csrf_token', $token);
         return "<input type='hidden' name='csrf_token' value='".$this->request->session('csrf_token')."'/>";
+    }
+
+    protected function json($data, $code=200)
+    {
+        http_response_code($code);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
     protected function redirect($url)
@@ -53,12 +51,14 @@ class View
 
         $views = 'statics/templates';
         $cache = 'engine/cache';
+        $user = $this->request->session('holidays_auth');
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
         echo $blade->run($dir, array_merge([
                 'app_name' => $app_name, 
                 'app_path' => $app_path,
                 'csrf' => $csrf,
-                'messages' => $messages
+                'messages' => $messages,
+                'user' => $user
             ], 
             $args
         ));
