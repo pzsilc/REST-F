@@ -1,178 +1,376 @@
 <?php
-
+namespace engine\Fields;
 
 abstract class Field
 {
     public $name;
     public $settings;
-    public $attrs;
 
-    protected function __construct($name, $settings){
+    protected function __construct($name, $settings)
+    {
         $this->name = $name;
         $this->settings = $settings;
-        if(!isset($settings['required']) || $settings['required'] == true){ $this->attrs .= ' required '; }
     }
 
-    public static function init($name, $settings=[]){
+    public static function init($name, $settings=[])
+    {
         $class = get_called_class();
-        if(!is_array($settings)){ throw new Exception('Invalid args'); }
-        if(method_exists($class, 'valid')){ $class::valid($settings); }
+        if(!is_array($settings))
+            throw new Exception('Invalid args');
         return new $class($name, $settings);
     }
 
-    public function add_attr($attr)
+    public function is_valid($var, $class, $errors)
     {
-        $this->attrs .= ' '.$attr.' ';
+        if(!isset($this->settings['required']) || $this->settings['required'])
+        {
+            if(!$var)
+            {
+                array_push($errors, $this->name.' field is required');
+                return false;
+            }
+        }
+        elseif(!isset($this->settings['default']))
+        {
+            array_push($errors, $this->name.' must have default value');
+            return false;
+        }
+        if(isset($this->settings['unique']) && $this->settings['unique'] && $class)
+        {
+            try
+            {
+                $rows = count($class::filter([$this->name, '=', $var]));
+            }
+            catch(Exception $e)
+            {
+                $rows = 0;
+                array_push($errors, $this->name.' has unique option but has no model defined. This is forbitten');
+            }
+
+            if(!$rows)
+            {
+                array_push($errors, $this->name.' has invalid format');
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public abstract function to_sql();
-
-    public abstract function __toString();
 }
+
+
+
+
+
 
 
 
 
 class CharField extends Field
 {
-    public static function valid($settings){
-        if(!isset($settings['max'])){ throw new Exception('Have to define max'); }
+    public function __construct($name, $settings)
+    {
+        parent::__construct($name, $settings);
+        if(!isset($settings['max_length']) || !is_integer($settings['max_length']))
+            throw new Exception("CharField requires 'max_length' setting");
     }
 
-    public function to_sql(){
-        return "VARCHAR(".$this->settings['max'].")";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_string($var))
+        {
+            array_push($errors, $this->name.' field must be a string');
+            return false;
+        } 
+        if(strlen($var) > $this->settings['max_length'])
+        {
+            array_push($errors, $this->name.' is too long');
+            return false;
+        }
+        return parent::is_valid($var, $class, $errors);
     }
 
-    public function __toString(){
-        return "<input type='text' name='$this->name' $this->attrs/>";
+    public function to_sql()
+    {
+        return "VARCHAR(".$this->settings['max_length'].")";
     }
 }
+
+
 
 class TextField extends Field
 {
-    public function to_sql(){
-        return "TEXT";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_string($var))
+        {
+            array_push($errors, $this->name.' field must be a string');
+            return false;
+        } 
+        return parent::is_valid($var, $class, $errors);
     }
 
-    public function __toString(){
-        return "<textarea name='$this->name' $this->attrs></textarea>";
+    public function to_sql()
+    {
+        return "TEXT";
     }
 }
+
+
 
 class IntegerField extends Field
 {
-    public function to_sql(){
-        return "INT";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_integer($var))
+        {
+            array_push($errors, $this->name.' field must be a integer');
+            return false;
+        }
+        if(isset($this->settings['max']) && $var > $this->settings['max'])
+        {
+            array_push($errors, $this->name.' field is too great');
+            return false;
+        }
+        if(isset($this->settings['min']) && $var < $this->settings['min'])
+        {
+            array_push($errors, $this->name.' field is too low');
+            return false;
+        }
+        return parent::is_valid($var, $class, $errors);
     }
 
-    public function __toString(){
-        return "<input type='number' name='$this->name' $this->attrs/>";
+    public function to_sql()
+    {
+        return "INT";
     }
 }
+
+
 
 class DecimalField extends Field
 {
-    public static function valid($settings){
-        if(!isset($settings['numbers_qty'])){ throw new Exception('Have to define numbers quantity'); }
-        if(!isset($settings['precision'])){ throw new Exception('Have to define precision'); }
-        if($settings['precisions'] < $settings['numbers_qty']){ throw new Exception('Precision must be greater than numbers quantity'); }
-    }
-    
-    public function to_sql(){
-        return "DECIMAL(".$this->settings['precision'].' '.$this->settings['numbers_qty'].")";
+    public function __construct($name, $settings)
+    {
+        parent::__construct($name, $settings);
+        if(!isset($settings['precision']) || !isset($settings['decimal_point']))
+            throw new Exception("DecimalField requires 'precision' and 'decimal_point' settings");
     }
 
-    public function __toString(){
-        return "<input type='number' step='".$this->settings['step']."' name='$this->name' $this->attrs/>";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_float($var))
+        {
+            array_push($errors, $this->name.' field must be a integer');
+            return false;
+        }
+        if(isset($this->settings['max']) && $var > $this->settings['max'])
+        {
+            array_push($errors, $this->name.' field is too great');
+            return false;
+        }
+        if(isset($this->settings['min']) && $var < $this->settings['min'])
+        {
+            array_push($errors, $this->name.' field is too low');
+            return false;
+        }
+        return parent::is_valid($var, $class, $errors);
+    }
+    
+    public function to_sql()
+    {
+        return "DECIMAL(".$this->settings['precision'].' '.$this->settings['decimal_point'].")";
     }
 }
+
+
 
 class BooleanField extends Field
 {
-    public function to_sql(){
-        return "BOOLEAN";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_bool($var))
+        {
+            array_push($errors, $this->name.' field must be a boolean');
+            return false;
+        }
+        return parent::is_valid($var, $class, $errors);
     }
 
-    public function __toString(){
-        return "<input type='checkbox' name='$this->name' $this->attrs/>";
+    public function to_sql()
+    {
+        return "BOOLEAN";
     }
 }
+
+
 
 class EmailField extends Field
 {
-    public function to_sql(){
-        return "VARCHAR(".$this->settings['max'].")";
+    public function __construct($name, $settings)
+    {
+        $settings['unique'] = true;
+        parent::__construct($name, $settings);
+        if(!isset($settings['max_length']) || !is_integer($settings['max_length']))
+            throw new Exception("EmailField requires 'max_length' setting ");
     }
 
-    public function __toString(){
-        return "<input type='email' name='$this->name' $this->attrs/>";
+    private function check_email($email) {
+        $find1 = strpos($email, '@');
+        $find2 = strpos($email, '.');
+        return ($find1 !== false && $find2 !== false && $find2 > $find1);
+    }
+
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_string($var))
+        {
+            array_push($errors, $this->name.' field must be a integer');
+            return false;
+        } 
+        if(strlen($var) > $this->settings['max_length'])
+        {
+            array_push($errors, $this->name.' field is too long');
+            return false;
+        } 
+        if($this->check_email($var))
+        {
+            array_push($errors, $this->name.' field has invalid format');
+            return false;
+        }
+        return parent::is_valid($var, $class, $errors);    
+    }
+
+    public function to_sql()
+    {
+        return "VARCHAR(".$this->settings['max_length'].")";
     }
 }
+
+
 
 class PasswordField extends Field
 {
-    public static function valid($settings){
-        if(!isset($settings['max'])){ throw new Exception('Have to define max'); }
+    public function __construct($name, $settings)
+    {
+        parent::__construct($name, $settings);
+        if(!isset($settings['max_length']) || !is_integer($settings['max_length']))
+            throw new Exception("PasswordField requires 'max_length' setting");
     }
 
-    public function to_sql(){
-        return "VARCHAR(".$this->settings['max'].")";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_string($var))
+        {
+            array_push($errors, $this->name.' field must be a integer');
+            return false;
+        } 
+        if(strlen($var) > $this->settings['max_length'])
+        {
+            array_push($errors, $this->name.' field is too long');
+            return false;
+        } 
+        return parent::is_valid($var, $class, $errors);    
     }
 
-    public function __toString(){
-        return "<input type='password' name='$this->name' $this->attrs/>";
+    public function to_sql()
+    {
+        return "VARCHAR(".$this->settings['max_length'].")";
     }
 }
+
+
 
 class DateField extends Field
 {
-    public function to_sql(){
-        return "DATE";
+    const NOW = 'now';
+
+    public function __construct($name, $settings)
+    {
+        if(isset($settings['default']) && $settings['default'] === self::NOW)
+            $settings['default'] = 'NOW()';
+        parent::__construct($name, $settings);
     }
 
-    public function __toString(){
-        return "<input type='date' name='$this->name' $this->attrs/>";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!DateTime::createFromFormat('Y-m-d', $var))
+        {
+            array_push($errors, $this->name.' field has invalid format');
+            return false;
+        } 
+        return parent::is_valid($var, $class, $errors);
+    }
+
+    public function to_sql()
+    {
+        return "DATE DEFAULT ".$settings['default'];
     }
 }
+
+
 
 class DateTimeField extends Field
 {
-    public function to_sql(){
-        return "DATETIME";
+    const NOW = 'now';
+
+    public function __construct($name, $settings)
+    {
+        if(isset($settings['default']) && $settings['default'] === self::NOW)
+            $settings['default'] = 'NOW()';
+        parent::__construct($name, $settings);
     }
 
-    public function __toString(){
-        return "<input type='datetime-local' name='$this->name' $this->attrs/>";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!DateTime::createFromFormat('Y-m-d H:i:s', $var))
+        {
+            array_push($errors, $this->name.' field has invalid format');
+            return false;
+        }
+        return parent::is_valid($var, $class, $errors);
+    }
+
+    public function to_sql()
+    {
+        return "DATETIME DEFAULT ".$settings['default'];
     }
 }
 
+
+
 class ForeignField extends Field
 {
-    private $_model = null;
+    public $model = null;
 
-    public static function init($name, $_model=null, $settings=[]){
-        if(!is_array($settings) || !$_model) 
+    public static function init($name, $model, $settings=[])
+    {
+        if(!is_array($settings) || !$model) 
             throw new Exception('Invalid args');
         $o = new ForeignField($name, $settings);
-        $o->_model = $_model;
+        $o->model = $model;
         return $o;
     }
 
-    public function to_sql(){
-        return "INT UNSIGNED";
+    public function is_valid($var, $class, $errors)
+    {
+        if(!is_integer($var))
+            return false;
+        $model = $this->model;
+        $sample = $model::get($var);
+        if(!boolval($sample))
+        {
+            array_push($errors, 'Association of '.$this->name.' field doesn\'t exists');
+            return false;
+        } 
+        return parent::is_valid($var, $class);
     }
 
-    public function __toString(){
-        $model = $this->_model;
-        require_once __dir__."/../models/$model.php";
-        $entities = $model::all();
-        $res = "<select name='$this->name' $this->attrs>";
-        if(isset($this->settings['required']) && $this->settings['required'] == false) $res .= '<option value="">None</option>';
-        foreach($entities as $ent){
-            $res .= "<option value='$ent->id'>$ent</option>";
-        }
-        $res .= '</select>';
-        return $res;
+    public function to_sql()
+    {
+        return "INT UNSIGNED";
     }
 }
 

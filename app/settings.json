@@ -1,0 +1,22 @@
+{
+    "appName": "restYODA",
+    "appPath": "http://localhost/restYODA",
+    "allowedHost": "*",
+    "language": "en",
+    "databases": [
+        {
+            "alias": "yoda",
+            "host": "localhost",
+            "user": "root",
+            "password": "",
+            "db": "yoda"
+        }
+    ],
+    "defaultDatabase": "yoda",
+    "email": {
+        "host": "",
+        "name": "",
+        "password": "",
+        "port": ""
+    }
+}

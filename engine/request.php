@@ -1,6 +1,6 @@
 <?php
+namespace engine\Request;
 session_start();
-
 
 class Request 
 {

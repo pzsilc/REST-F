@@ -1,11 +1,10 @@
 <?php
-
-require_once __dir__.'/../engine/model.php';
-require_once __dir__.'/../engine/fields.php';
+namespace models\__NAME__;
+use engine\Model\Model;
+use engine\Fields;
 
 class __NAME__ extends Model
 {
-    const TABLE = '__TABLE__';
     public function __construct()
     {
         //

@@ -1,0 +1,99 @@
+<?php
+
+final class Manager
+{
+    const OPERATIONS = [
+        ['migrate', 'migrate'],
+        ['model', 'create_model'],
+        ['view', 'create_view'],
+        ['serializer', 'create_serializer'],
+        ['trait', 'create_trait'],
+        ['middleware', 'create_middleware']
+    ];
+
+    public static function run($argv)
+    {
+        $operation = $argv[1];
+        foreach(self::OPERATIONS as $o){
+            if($o[0] === $operation){
+                $method = $o[1];
+                return self::$method($argv);
+            }
+        }
+        echo "\e[31mSuch option does not exist\e[39m";
+    }
+
+    public static function migrate($argv)
+    {
+        if(count($argv) !== 2) throw new Exception('Migrate option is not accepting any parameters\e[39m');
+        $output = shell_exec("cd engine && php migrate.php");
+        print_r($output);
+    }
+
+    public static function create_model($argv)
+    {
+        if(count($argv) !== 3) throw new Exception('\e[31mModel option is accepting exctly 1 param\e[39m');
+        $name = $argv[2];
+        $source = file_get_contents('engine/source_templates/model.txt');
+        $source = str_replace('__NAME__', $name, $source);
+        $file = fopen("models/$name.php", 'w');
+        fwrite($file, $source);
+        fclose($file);
+        echo "\e[32mModel $name created successfuly\e[39m";
+    }
+
+    public static function create_view($argv)
+    {
+        if(count($argv) !== 3) throw new Exception('\e[31mView option is accepting exctly 1 param\e[39m');
+        $name = $argv[2];
+        $source = file_get_contents('engine/source_templates/view.txt');
+        $source = str_replace('__NAME__', $name, $source);
+        $file = fopen("views/$name.php", 'w');
+        fwrite($file, $source);
+        fclose($file);
+        echo "\e[32mView $name created successfuly\e[39m";
+    }
+
+    public static function create_serializer($argv)
+    {
+        if(count($argv) !== 3) throw new Exception('\e[31mSerializer option is accepting exctly 1 param\e[39m');
+        $name = $argv[2];
+        $model = str_replace('Serializer', '', $name);
+        $source = file_get_contents('engine/source_templates/serializer.txt');
+        $source = str_replace('__NAME__', $name, $source);
+        $source = str_replace('__MODEL__', $model, $source);
+        $file = fopen("serializers/$name.php", 'w');
+        fwrite($file, $source);
+        fclose($file);
+        echo "\e[32mSerializer $name created successfuly\e[39m";
+    }
+
+    public static function create_trait($argv)
+    {
+        if(count($argv) !== 3) throw new Exception('\e[31mTrait option is accepting exctly 1 param\e[39m');
+        $name = $argv[2];
+        $source = file_get_contents('engine/source_templates/trait.txt');
+        $source = str_replace('__NAME__', $name, $source);
+        $file = fopen("app/traits/$name.php", 'w');
+        fwrite($file, $source);
+        fclose($file);
+        echo "\e[32mTrait $name created successfuly\e[39m";
+    }
+
+    public static function create_middleware($argv)
+    {
+        if(count($argv) !== 3) throw new Exception('\e[31mMiddleware option is accepting exctly 1 param\e[39m');
+        $name = $argv[2];
+        $source = file_get_contents('engine/source_templates/middleware.txt');
+        $source = str_replace('__NAME__', $name, $source);
+        $file = fopen("app/middlewares/$name.php", 'w');
+        fwrite($file, $source);
+        fclose($file);
+        echo "\e[32mMiddleware $name created successfuly\e[39m";
+    }
+}
+
+if(count($argv) == 1) throw new Exception('\e[31mManager require at least 1 parameter\e[39m');
+Manager::run($argv);
+
+?>

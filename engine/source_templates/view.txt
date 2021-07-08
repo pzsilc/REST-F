@@ -1,9 +1,12 @@
 <?php
-require_once __dir__.'/../engine/view.php';
+namespace views\__NAME__;
+use engine\View\View;
 
 class __NAME__ extends View
 {
-    //
+    const ALLOWED_ROUTES = [];
+    const MODEL = null;
+    const SERIALIZER = null;
 }
 
 ?>
