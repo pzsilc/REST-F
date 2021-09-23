@@ -1,0 +1,25 @@
+{
+    "appName": "Title",
+    "appPath": "http://localhost/app",
+    "allowedHost": "*",
+    "language": "en",
+    "installedApps": [
+        "app"
+    ],
+    "databases": [
+        {
+            "alias": "db1",
+            "host": "localhost",
+            "user": "",
+            "password": "",
+            "db": "db1"
+        }
+    ],
+    "defaultDatabase": "db1",
+    "email": {
+        "host": "",
+        "name": "",
+        "password": "",
+        "port": ""
+    }
+}

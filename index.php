@@ -1,5 +1,8 @@
 <?php
 
+
+ini_set('display_errors', 1);
+
 require_once 'engine/General.php';
 use engine\General;
 
@@ -7,7 +10,7 @@ use engine\General;
 $settings = General\General::get_settings();
 
 //load packages
-General\General::load_packages();
+General\General::load_packages($settings['installedApps']);
 
 //handleing CORS settings
 General\General::cors($settings);
@@ -16,7 +19,7 @@ General\General::cors($settings);
 $current_url = General\General::extract_url();
 
 //run matching url
-require_once 'app/urls.php';
+require_once 'server/urls.php';
 General\General::match_and_run($current_url, $urls);
 
 ?>
