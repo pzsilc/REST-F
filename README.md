@@ -65,7 +65,8 @@
         Metody:<br/>
         - is_valid() -> walidacja danych (pole data) (wymagane do zapisania danych)<br/>
         - create($validated_data) -> nadpisanie zapisywania instancji<br/>
-        - destroy() -> nadpisanie usuwania<br/>
+        - update($instance, $validated_data) -> nadpisanie zapisywania instancji<br/>
+        - destroy($instance) -> nadpisanie usuwania<br/>
       </p>
     </p>
   </li>
