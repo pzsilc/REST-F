@@ -91,3 +91,34 @@
   </li>
 </ul>
 <hr/>
+<h4>settings.json</h4>
+<p>
+  Ustawienia aplikacji<br/>
+  Pola "databases" i "defaultDatabase":<br/>
+  <ul>
+    <li>
+      "databases" - tablica konfiguracji baz danych. Można podłączyć więcej<br/>
+      niż 1 bazę danych. Pole alias jest nazwą bazy (w aplikacji) żeby łatwiej można było się zorientować.
+    </li>
+    <li>
+      "defaultDatabase" - alias domyślnej bazy danych
+    </li>
+  </ul>
+</p>
+<hr/>
+<h4>urls.php</h4>
+<p>
+  Ustawienia urlów<br/>
+  <b>Metody klasy URL</b>
+  <ul>
+    <li>
+      add($url(string), $route(array), $http_method(string, niewymagany, domyślnie 'GET'))<br/>
+      <b>Argument $route</b>
+      Jeśli chcemy zmapować klasę i jej metody do routerów wystawczy użyć składni KlasaWidoku::as_view()<br/>
+      Jeśli chcemy dodać własną metodę należy użyć składni KlasaWidok::_customMethod(), ważny jest '_' przed nazwą metody.<br/>
+      Taka metoda domyślnie przyjmie argument $request. Jeśli chcemy nadać jej więcej argumentów, trzeba ustawić dodatkowe zmienne <br/>
+      w urlu za pomocą składni '<:pole>', np. 'posts/<:id>/comments/'. Taka metoda dostanie dodatkowo parametr $id jako argument.
+    </li>
+    <li>_include($target(string)) - dołącza routy innej aplikacji</li>
+  </ul>
+</p>
