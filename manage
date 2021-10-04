@@ -3,7 +3,7 @@
 final class Manager
 {
     const OPERATIONS = [
-        ['migrate', 'migrate'],
+        ['migrate'],
     ];
 
     public static function run($argv)
@@ -21,7 +21,7 @@ final class Manager
     public static function migrate($argv)
     {
         if(count($argv) !== 2) throw new Exception('Migrate option is not accepting any parameters\e[39m');
-        $output = shell_exec("cd engine && php migrate.php");
+        $output = shell_exec("cd core && php migrate.php");
         print_r($output);
     }
 }
